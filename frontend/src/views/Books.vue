@@ -36,6 +36,19 @@ const addBookHandler = async (e: Event) => {
 		console.error(err)
 	}
 }
+
+const deleteBookHandler = async (id: number) => {
+	try {
+		const res = await fetch(`http://localhost:5000/api/delete-book/${id}`, {
+			method: 'DELETE',
+		})
+		if (res.ok) {
+			renderBooks()
+		}
+	} catch (err) {
+		console.error(err)
+	}
+}
 </script>
 
 <template>
@@ -75,6 +88,6 @@ const addBookHandler = async (e: Event) => {
 		</form>
 	</div>
 	<div class="px-8 mt-12 grid md:col-span-2 gap-6 [grid-template-columns:repeat(auto-fit,minmax(200px,300px))]">
-		<Book v-for="book in books" :key="book.id" :title="book.title" :author="book.author" />
+		<Book v-for="book in books" :key="book.id" :title="book.title" :author="book.author" :id="book.id" :deleteHandler="deleteBookHandler" />
 	</div>
 </template>
