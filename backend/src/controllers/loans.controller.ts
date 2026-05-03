@@ -10,7 +10,7 @@ type Loan = {
 export const getLoans = async (req: Request, res: Response) => {
 	try {
 		const result = await pool.query('SELECT * FROM loans')
-		return res.status(200).json(result)
+		return res.status(200).json(result.rows)
 	} catch (err) {
 		console.error(err)
 		return res.status(500).json({ message: 'Database error.' })
