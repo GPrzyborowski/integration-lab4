@@ -34,3 +34,27 @@ export const newBook = async (req: Request<{}, {}, Book>, res: Response) => {
 		return res.status(500).json({ error: 'Database error.' })
 	}
 }
+
+export const deleteBook = async (req: Request<{ id: string }, {}, {}>, res: Response) => {
+	const { id } = req.params
+	const parsedId = Number(id)
+	if (isNaN(parsedId)) {
+		return res.status(400).json({ message: 'Invalid book id.' })
+	}
+	try {
+		const activeBookLoans = await pool.query('SELECT * FROM loans WHERE (book_id=$1 AND return_date IS NULL)', [
+			parsedId,
+		])
+		if ((activeBookLoans.rowCount ?? 0) > 0) {
+			return res.status(400).json({ message: 'This book has active loans.' })
+		}
+		const result = await pool.query('DELETE FROM books WHERE id=$1 RETURNING *', [parsedId])
+		if (result.rowCount == 0) {
+			return res.status(400).json({ error: 'Book not found.' })
+		}
+		return res.status(200).json({ message: 'The book was successfully deleted.' })
+	} catch (err) {
+		console.error(err)
+		return res.status(500).json({ error: 'Database error.' })
+	}
+}
