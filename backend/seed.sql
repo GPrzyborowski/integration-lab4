@@ -1,11 +1,22 @@
--- seed.sql
+-- USERS
+INSERT INTO users (name, email)
+VALUES
+('Jan Kowalski', 'jan@example.com'),
+('Anna Nowak', 'anna@example.com'),
+('Piotr Wiśniewski', 'piotr@example.com');
+
+-- BOOKS
 INSERT INTO books (title, author)
 VALUES 
 ('Władca Pierścieni', 'J.R.R. Tolkien'),
 ('1984', 'George Orwell'),
-('Hobbit', 'J.R.R. Tolkien');
+('Hobbit', 'J.R.R. Tolkien'),
+('Diuna', 'Frank Herbert');
 
-INSERT INTO loans (book_id, borrower_name, loan_date)
+-- LOANS
+INSERT INTO loans (book_id, user_id, loan_date, return_date)
 VALUES
-(1, 'Jan Kowalski', CURRENT_DATE),
-(2, 'Anna Nowak', CURRENT_DATE);
+(1, 1, CURRENT_DATE, NULL),
+(2, 2, CURRENT_DATE, NULL),
+(3, 3, CURRENT_DATE - INTERVAL '7 days', CURRENT_DATE),
+(4, 1, CURRENT_DATE - INTERVAL '3 days', NULL);
