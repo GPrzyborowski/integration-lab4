@@ -40,7 +40,6 @@ export const newLoan = async (req: Request<{}, {}, Loan>, res: Response) => {
 		return res.status(400).json({ message: 'Missing data.' })
 	}
 	try {
-		const borrowerName = await pool.query('SELECT name FROM users WHERE id=$1', [borrowerId])
 		const result = await pool.query('INSERT INTO loans (book_id, user_id, loan_date) VALUES ($1, $2, $3) RETURNING *', [
 			bookId,
 			borrowerId,
