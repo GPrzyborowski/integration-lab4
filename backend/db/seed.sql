@@ -9,7 +9,7 @@ VALUES
 INSERT INTO books (title, author)
 VALUES 
 ('Władca Pierścieni', 'J.R.R. Tolkien'),
-('1984', 'George Orwell'),
+('Ojciec chrzestny', 'Mario Puzo'),
 ('Hobbit', 'J.R.R. Tolkien'),
 ('Diuna', 'Frank Herbert');
 
