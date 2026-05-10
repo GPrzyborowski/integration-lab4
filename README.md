@@ -84,7 +84,7 @@ docker compose down -v
 Po ponownym uruchomieniu:
 
 ```bash
-docker compose up --build
+docker compose up
 ```
 
 baza danych zostanie utworzona od nowa wraz z migracją i seedem.
